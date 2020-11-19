@@ -24,10 +24,19 @@ console.log(arrayBombe);
 
 var arrayNumeroUtente = [];
 
-while (arrayNumeroUtente.length < 4) {
-  var numeroUtente = parseInt(prompt("inserisci numero"));
-  if ((!arrayBombe.includes(numeroUtente)) && (!arrayNumeroUtente.includes(numeroUtente)) ) {
-    arrayNumeroUtente.push(numeroUtente)
-  }
+var gameOver = 0;
+
+while (arrayNumeroUtente.length < 86 || gameOver == 0) {
+  var numeroUtente = Math.floor(Math.random()*100)+1;
   console.log(numeroUtente);
+  if (arrayNumeroUtente.includes(numeroUtente)) {
+    arrayNumeroUtente.push();
+  }
+  else if (!arrayBombe.includes(numeroUtente)) {
+    arrayNumeroUtente.push(numeroUtente);
+  }
+  else {
+    var gameOver = 1;
+  }
+  console.log(arrayNumeroUtente);
 }
