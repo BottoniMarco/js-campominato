@@ -11,32 +11,74 @@
 // con difficoltà 0 => tra 1 e 100
 // con difficoltà 1 =>  tra 1 e 80
 
+
+// funzioni
+// -------------------------------------------------
+function numeriRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function controlloDoppi(array,numero) {
+
+  doppio = false;
+
+  for(var i = 0; i<array.length;i++)
+
+    if (numero == array[i]) {
+      doppio = true;
+      return doppio;
+    }
+  return doppio;
+}
+
+// ----------------------------------------------
+
+
+var livello = prompt("inserisci difficoltà (0,1,2) ");
+
+switch (livello) {
+  case "2":
+    tentativi = 50;
+    break;
+
+    case "1":
+      tentativi = 80;
+      break;
+
+  default:
+    tentativi = 100;
+}
+
+console.log("livello di difficoltà", livello);
+
+var tentativiTotali = tentativi - 16;
 var arrayBombe =[];
 
-
 while (arrayBombe.length < 16) {
-  var bombe = Math.floor(Math.random()*100)+1;
+  var bombe = numeriRandom(1,tentativi);
   if (!arrayBombe.includes(bombe)) {
     arrayBombe.push(bombe);
   }
 }
-console.log(arrayBombe);
+console.log("array bombe ",arrayBombe);
 
 var arrayNumeroUtente = [];
+var gameOver = false;
 
-var gameOver = 0;
+while (arrayNumeroUtente.length < tentativiTotali && gameOver == false) {
+  var numeroUtente = numeriRandom(1,tentativi);
 
-while (arrayNumeroUtente.length < 86 || gameOver == 0) {
-  var numeroUtente = Math.floor(Math.random()*100)+1;
-  console.log(numeroUtente);
-  if (arrayNumeroUtente.includes(numeroUtente)) {
+  if (controlloDoppi(arrayNumeroUtente,numeroUtente)) {
     arrayNumeroUtente.push();
   }
-  else if (!arrayBombe.includes(numeroUtente)) {
+  else if (controlloDoppi(arrayBombe,numeroUtente)==false) {
     arrayNumeroUtente.push(numeroUtente);
   }
   else {
-    var gameOver = 1;
+    var gameOver = true;
   }
-  console.log(arrayNumeroUtente);
 }
+
+console.log("array n utente ",arrayNumeroUtente);
+var punteggio = arrayNumeroUtente.length;
+console.log("PUNTEGGIO ", punteggio );
